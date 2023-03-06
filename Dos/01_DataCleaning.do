@@ -15,10 +15,10 @@ This script implements common methods for data cleaning.
 ssc install mdesc 		// for detecting missing values
 ssc install fillmissing // for filling missing values
 ssc install extremes 	// for extracting extreme values
-ssc install winsor2		// for handling outliers
+ssc install winsor2		// for handling outliers 
 
 /* Import data */
-import excel "$Data/StockPrices.xlsx", sheet ("Sheet1") firstrow clear
+import excel "$Raw/StockPrices.xlsx", sheet ("Sheet1") firstrow clear
 
 
 /* Label variables for later use */
