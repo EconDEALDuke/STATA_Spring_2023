@@ -1,0 +1,323 @@
+\documentclass[10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage {mathtools}
+\usepackage{utopia} %font utopia imported
+\usepackage{amsmath}
+
+
+
+
+%Allows cmidrule (horizontal lines in tables)
+\usepackage{booktabs}
+
+%Allows to control table size relative to page size
+\usepackage{adjustbox}
+
+%Real numbers symbol
+\usepackage{amssymb}
+
+%Allows colored text
+\usepackage{xcolor}
+
+%Allows to justify text and other text formating features
+\usepackage{ragged2e}
+
+%Allows floatbarrier
+\usepackage{placeins}
+
+%Caption size
+\usepackage{caption}
+
+%Use of subfigures
+\usepackage{subcaption}
+
+%Allows hl
+\usepackage{color}
+
+%Allows hiding table columns
+\usepackage{array}
+\newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
+
+%Allows landscape 
+\usepackage{lscape}
+
+%Allows expectation operator 
+ 
+%Allows multirow for tables (some excel2latex tables need it)
+\usepackage{multirow}
+
+%Allos dashed lines in tables
+\usepackage{arydshln}
+
+%Allows to control spacing
+\usepackage{setspace}
+
+%Allows underset and overset
+\usepackage{amsmath}
+%Allows doublespace
+\usepackage{setspace}
+
+%Theorem environment
+\usepackage{amsthm}
+\newtheorem{proposition}{Proposition}
+
+\usetheme{CambridgeUS}
+\usecolortheme{dolphin}
+
+\newenvironment{benumerate}[1]{
+    \let\oldItem\item
+    \def\item{\addtocounter{enumi}{-2}\oldItem}
+    \begin{enumerate}
+    \setcounter{enumi}{#1}
+    \addtocounter{enumi}{1}
+}{
+    \end{enumerate}
+}
+% set colors
+\definecolor{myNewColorA}{RGB}{25,25,112}
+\definecolor{myNewColorB}{RGB}{25,25,112}
+\definecolor{myNewColorC}{RGB}{25,25,112}
+\setbeamercolor*{palette primary}{bg=myNewColorC}
+\setbeamercolor*{palette secondary}{bg=myNewColorB, fg = white}
+\setbeamercolor*{palette tertiary}{bg=myNewColorA, fg = white}
+\setbeamercolor*{titlelike}{fg=myNewColorA}
+\setbeamercolor*{title}{bg=myNewColorA, fg = white}
+\setbeamercolor*{item}{fg=myNewColorA}
+\setbeamercolor*{caption name}{fg=myNewColorA}
+\usefonttheme{professionalfonts}
+\usepackage{natbib}
+\usepackage{hyperref}
+%------------------------------------------------------------
+
+\setbeamerfont{title}{size=\large}
+\setbeamerfont{subtitle}{size=\small}
+\setbeamerfont{author}{size=\small}
+\setbeamerfont{date}{size=\small}
+\setbeamerfont{institute}{size=\small}
+\title[]{Figures and tables using Stata.}%主标题
+%\subtitle{ }%%副标题
+\author[DEAL 2023]{Ricardo Miranda}%%作者
+
+\institute[Duke University]{}
+\date[\textcolor{white}{\today} ]
+{\today}
+
+%------------------------------------------------------------
+%This block of commands puts the table of contents at the 
+%beginning of each section and highlights the current section:
+%\AtBeginSection[]
+%{
+%  \begin{frame}
+%    \frametitle{Contents}
+%    \tableofcontents[currentsection]
+%  \end{frame}
+%}
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+%------------------------------------------------------------
+
+\begin{document}
+
+%The next statement creates the title page.
+\frame{\titlepage}
+
+\begin{frame}{How are economic disadvantages transmitted from parents to children?}
+
+There are several studies documenting how wealth is transferred and inherited. But what about poverty and debt? \\
+\bigskip
+Smythe, A. looks at the change in wealth over a year and shows that children who spend more money on their parents do not experience an increase in wealth.\\
+\bigskip
+This is done using the fact that at age 62 parents become eligible for social security support.\\
+\bigskip
+In this lecture we will go beyond the paper's analysis and explore the story in depth. In the process we will use some trick that make figures and tables more readable and compelling.\\
+\bigskip
+Useful tool for RA's: https://www.ctan.org/pkg/excel2latex
+\end{frame}
+
+\begin{frame}{Getting to know your data:}
+    Lets start with a very simple exploratory analysis. Just enlist the main variables and report their basic descriptive statistics.\\
+    \bigskip
+    \begin{itemize}
+        \item Summarize: For ovious reasons
+        \item For loop: To iterate over variables
+        \item Putexcel: To export tables to excel
+    \end{itemize}
+    \bigskip
+    
+    Other approaches: esttab, estout, regression only on the constant.
+        
+\end{frame}
+
+\begin{frame}{Getting to know your data:}
+
+\begin{table}[]
+    \begin{adjustbox}{width=.9\textwidth}
+    \input{DescriptiveSummaryStats}
+    \end{adjustbox}
+\end{table}  
+
+\end{frame}
+
+\begin{frame}{Is there a simple story in your data? Is it a clear one?}
+
+    Now lets explore differences in the sample. Is there any simple evidence that suggest what we think its happening? \\
+    \bigskip
+    \begin{itemize}
+            \item Summarize: For ovious reasons
+            \item For loop: To iterate over variables
+            \item Putexcel: To export tables to excel
+            \item Useful trick: Loop over alphabet letters.
+    \end{itemize}
+    \bigskip
+    Other approaches: Regression on indicators, t-tests, graphical approaches (see next slides) 
+    
+\end{frame}
+
+\begin{frame}{Is there a simple story in your data? Is it a clear one?}
+
+    \begin{adjustbox}{width=.9\textwidth}
+    \input{SummaryStats}
+    \end{adjustbox}
+    
+\end{frame}
+
+\begin{frame}{Are means sufficiently rich? How can we look at the whole population whithout getting lost?}
+
+    We can plot all the observations (if we are willing to look at just a few variables). The story is not always more clear.\\
+    \bigskip
+    \begin{enumerate}
+        \item Scatter: To observe joint distribution
+        \item lfit: Graphical regression
+        \item Several aesthetic options for the figures.
+        \item Are outliers preventing us from looking at the places where the action happens?
+    \end{enumerate}
+    
+    Other approaches: Bar graphs, boxplots. 
+    
+\end{frame}
+
+\begin{frame}{Are means sufficiently rich? How can we look at the whole population whithout getting lost?}
+
+\begin{figure}[h!]
+  \includegraphics[width=.6\textwidth]{LineFitScatter.png}
+\end{figure}%
+
+Are those big numbers messing with the figure?
+    
+\end{frame}
+
+\begin{frame}{Are means sufficiently rich? How can we look at the whole population whithout getting lost?}
+
+\begin{figure}[h!]
+  \includegraphics[width=.8\textwidth]{LineFitScatter_Restrict.png}
+\end{figure}%
+
+Should we control for covariates?
+
+\end{frame}
+
+\begin{frame}{Are means sufficiently rich? How can we look at the whole population whithout getting lost?}
+
+\begin{figure}[h!]
+  \includegraphics[width=.8\textwidth]{LineFitScatter_Residuals.png}
+\end{figure}%
+    
+\end{frame}
+
+\begin{frame}{A simple but powerful tool: comparing uni-variate densities}
+
+\begin{figure}[h!]
+  \includegraphics[width=.8\textwidth]{Hist1.png}
+\end{figure}%
+    
+\end{frame}
+
+\begin{frame}{A simple but powerful tool: comparing uni-variate densities}
+
+\begin{figure}[h!]
+  \includegraphics[width=.8\textwidth]{Hist2.png}
+\end{figure}%
+    
+\end{frame}
+
+
+\begin{frame}{A simple but powerful tool: comparing uni-variate densities}
+
+\begin{figure}[h!]
+  \includegraphics[width=.8\textwidth]{DensityComparison.png}
+\end{figure}%
+    
+\end{frame}
+
+\begin{frame}{Regression analysis}
+
+Do transfers patterns change when parents turn 62?\\
+\bigskip
+If yes, we can use this change to explore the effect of parents wealth on childrens' wealth.\\
+\begin{itemize}
+    \item outreg2
+    \item Indicators and loops for an organized robustness analysis.
+\end{itemize}
+\bigskip
+Other approaches (for importing results): Loop that writes a latex table, putexcel.
+
+    
+\end{frame}
+
+\begin{frame}{Regression analysis}
+    \begin{adjustbox}{width=.9\textwidth}
+    \input{Regression}
+    \end{adjustbox}
+    
+\end{frame}
+
+\begin{frame}{Regression analysis: Richer patterns}
+
+We can look at how the effect evolves as parents age. 
+
+\begin{figure}[h!]
+\begin{subfigure}[t]{.48\textwidth}
+  \includegraphics[width=\textwidth]{OLS_Transfer.png}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{.48\textwidth}
+  \includegraphics[width=\textwidth]{OLS_ChangeWealth.png}
+\end{subfigure}%
+\end{figure}%
+    
+\end{frame}
+
+
+\begin{frame}{A bit beyond regression analysis: Regression discontinuity}
+
+We can look at how the effect evolves as parents age in an even more flexible way. 
+
+\begin{figure}[h!]
+\begin{subfigure}[t]{.48\textwidth}
+  \includegraphics[width=\textwidth]{RD_Transfer.png}
+\end{subfigure}%
+\hfill
+\begin{subfigure}[t]{.48\textwidth}
+  \includegraphics[width=\textwidth]{RD_ChangeWealth.png}
+\end{subfigure}%
+\end{figure}%
+    
+\end{frame}
+
+\begin{frame}{Refference:}
+
+Smythe, A. (2022, May). Child-to-Parent Intergenerational Transfers, Social Security, and Child Wealth Building. In AEA Papers and Proceedings (Vol. 112, pp. 53-57). 2014 Broadway, Suite 305, Nashville, TN 37203: American Economic Association.
+    
+\end{frame}
+\end{document}
+
+
